@@ -1,0 +1,29 @@
+{% extends 'layout/base.html' %}
+
+{% block title %}
+    {{ category }} Forum
+{% endblock title %}
+
+{% block content %}
+
+    {% if category.id %}
+        <div class="subscribed">
+            <em>
+                Подписаться на категорию <strong> {{ category }}?</strong>
+            </em>
+            <a href="{% url 'subscribe' category.id %}" class="btn btn-outline-primary">
+                Подписаться
+            </a>
+        </div>
+    {% else %}
+        <div>
+            <em>
+                Отписаться от категории <strong> {{ category }}? </strong>
+            </em>
+            <a href="{% url 'unsubscribe' category.id %}" class="btn btn-outline-primary">
+                Отписаться!</a>
+        </div>
+    {% endif %}
+
+
+{% endblock content %}

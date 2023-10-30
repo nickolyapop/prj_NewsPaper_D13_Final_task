@@ -1,0 +1,55 @@
+{% extends 'layout/base.html' %}
+
+{% block content %}
+
+<h2>
+    Отклики
+</h2>
+
+<ul class="list-group">
+    {% for response in responses %}
+        <li>
+            {{ response.dateCreation }}
+            {{ response.responseUser }}
+            <br><hr>
+            {{ response.text }}
+            <br><hr>
+            {% if response.responseUser != user %}
+
+
+                <form method="post" action= "" >
+                    {% csrf_token %}
+
+                    <label>Ответить:</label>
+
+                     {{ form }}
+                    <input type="hidden" name="response_post_id" id="response_post_id" value="{{response.id}}">
+                    <input type="hidden" name="response_user_id" id="response_user_id" value="{{response.responseUser_id}}">
+                    <button type="submit" class="btn btn-primary">Отправить</button>
+                </form>
+
+                    <label>Ответы:</label>
+                    <ul>
+                    {% for r in response.resp_from_repl.all %}
+                        <li>
+                           {{r.text}}
+                        </li>
+
+                    {% endfor %}
+                    </ul>
+
+            {% endif %}
+
+
+                <form method="post" action="{% url 'delete_response' response.id %}">
+                    {% csrf_token %}
+                    <div>
+                        <input type="submit" value="Удалить отклик">
+                    </div>
+                </form>
+
+            </li>
+    {% endfor %}
+</ul>
+
+{% endblock content %}

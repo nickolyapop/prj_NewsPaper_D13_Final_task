@@ -1,0 +1,5 @@
+Django
+python-decouple
+django-allauth
+django-filter
+django_apscheduler
